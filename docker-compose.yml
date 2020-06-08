@@ -1,0 +1,36 @@
+version: '2'
+services:
+    # MySQL 5
+    mysql:
+        image: mariadb
+        # 数据卷映射
+        volumes: 
+            - ./data/mysql:/var/lib/mysql/data
+        restart: always
+        # 端口映射
+        ports:
+            - 3306:3306
+        # 环境变量
+        environment: 
+            # MySQL root 用户密码
+            MYSQL_ROOT_PASSWORD: root
+        # 容器名
+        container_name: mysql    
+    # Apache 2
+    httpd:
+        # 使用 bitnami/apache 容器镜像
+        image: bitnami/apache:latest
+        # 端口映射
+        ports:
+            - 80:80
+            - 443:443
+            - 8080:8080
+        # 数据卷映射（共享文件夹）
+        volumes:
+            - ./data/app:/app
+            - ./data/vhosts:/vhosts:ro
+        # 容器名
+        container_name: apache2
+        # 链接 MySQL 所在容器
+        links:
+            - mysql
