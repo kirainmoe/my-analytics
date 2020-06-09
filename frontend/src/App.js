@@ -120,7 +120,7 @@ class App extends React.Component {
         orient: 'vertical',
         bottom: 0,
         left: 0,
-        data: Object.keys(data.browser)
+        data: Object.keys(data.system)
       },
       tooltip: {
         trigger: 'item',
