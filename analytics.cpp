@@ -44,6 +44,7 @@ std::map<std::string, std::string> parseQueryString(std::string queryString)
 
 int cgiMain()
 {
+    fprintf(cgiOut, "Access-Control-Allow-Origin: *\n");
     cgiHeaderContentType("text/json");
 
     std::map<std::string, std::string> queryString = parseQueryString((std::string)cgiQueryString);
@@ -86,6 +87,7 @@ int cgiMain()
     std::map<std::string, int> region;
     std::map<std::string, int> language;
     std::map<std::string, int> url;
+    std::map<std::string, int> ip;
 
     StringBuffer strBuf;
     Writer<StringBuffer> writer(strBuf);
@@ -95,9 +97,17 @@ int cgiMain()
     for (auto row : res.result)
     {
         writer.StartObject();
+        if (ip.count(item["ip_address"]) == 0)
+        {
+            ip[item["ip_address"]]++;
+            std::string currentRegion = row["country"];
+            if (row["province"] != row["country"])
+                currentRegion += row["province"];
+            if (row["city"] != row["province"])
+                currentRegion += row["city"];
 
-        std::string currentRegion = row["country"] + row["province"] + row["city"];
-        region[currentRegion]++;
+            region[currentRegion]++;
+        }
 
         for (auto item : row)
         {

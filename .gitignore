@@ -1,0 +1,3 @@
+*.o
+*.cgi
+.DS_Store
