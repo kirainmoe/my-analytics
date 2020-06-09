@@ -97,9 +97,9 @@ int cgiMain()
     for (auto row : res.result)
     {
         writer.StartObject();
-        if (ip.count(item["ip_address"]) == 0)
+        if (ip.count(row["ip_address"]) == 0)
         {
-            ip[item["ip_address"]]++;
+            ip[row["ip_address"]]++;
             std::string currentRegion = row["country"];
             if (row["province"] != row["country"])
                 currentRegion += row["province"];
