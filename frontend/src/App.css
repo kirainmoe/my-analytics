@@ -1,5 +1,49 @@
-html, body {
+html, body, #root {
   width: 100%;
   height: 100%;
   margin: 0px;
+}
+
+.my-analytics-container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 30px;
+}
+
+.data-container {
+  margin-top: 0px;
+}
+
+.number-statistic {
+  padding: 8px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.table-container {
+  width: 100%;
+}
+
+.number-statistic p {
+  width: 33%;
+}
+
+.number-statistic h2 {
+  width: 100%;
+  margin-top: 20px;
+  font-size: 18px;
+  color: #496c8e
+}
+
+.chart-container {
+  margin-top: 20px;
+}
+
+.footer {
+  width: 100%;
+  text-align: center;
+  margin-top: 50px;
+  font-size: 12px;
+  color: #999;
 }
