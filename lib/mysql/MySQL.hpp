@@ -17,6 +17,7 @@
 #include <algorithm>
 #include <string>
 #include <vector>
+#include <map>
 
 #include <mysql/mysql.h>
 
@@ -29,7 +30,7 @@ struct Tuple
 struct MySQLResult
 {
     bool flag;
-    std::vector<std::string> result;
+    std::vector<std::map<std::string, std::string> > result;
 };
 
 class MySQL

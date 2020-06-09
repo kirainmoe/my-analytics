@@ -219,12 +219,30 @@ MySQLResult MySQL::exec()
 
     if (this->operation == "SELECT")
     {
+        res.result.clear();
+
         MYSQL_RES *r;
+        MYSQL_FIELD *fields;
         MYSQL_ROW row;
+
         r = mysql_use_result(&this->conn);
+
+        unsigned int fieldCount = 0;
+        fieldCount = mysql_num_fields(r);
+        fields = mysql_fetch_fields(r);
+
+        std::vector<std::string> fieldName;
+        for (int i = 0; i < fieldCount; i++)
+        {
+            fieldName.push_back((std::string)fields[i].name);
+        }
+
         while ((row = mysql_fetch_row(r)))
         {
-            printf("%s", row[0]);
+            std::map<std::string, std::string> tmp;
+            for (int i = 0; i < fieldCount; i++)
+                tmp.insert(make_pair(fieldName[i], (std::string)row[i]));
+            res.result.push_back(tmp);
         }
     }
 

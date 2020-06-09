@@ -5,7 +5,7 @@ services:
         image: mariadb
         # 数据卷映射
         volumes: 
-            - ./data/mysql:/var/lib/mysql/data
+            - mysql_data_vol:/var/lib/mysql/data
         restart: always
         # 端口映射
         ports:
@@ -28,9 +28,11 @@ services:
         # 数据卷映射（共享文件夹）
         volumes:
             - ./data/app:/app
-            - ./data/vhosts:/vhosts:ro
+            - ./data/vhosts:/vhosts
         # 容器名
         container_name: apache2
         # 链接 MySQL 所在容器
         links:
             - mysql
+volumes: 
+    mysql_data_vol:

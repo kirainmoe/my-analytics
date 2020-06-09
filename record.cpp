@@ -6,7 +6,6 @@
 #include "lib/mysql/MySQL.hpp"
 
 #include "lib/cgic/cgic.h"
-#include "lib/request/Request.h"
 #include "lib/ipdb/ipdb.h"
 
 struct Region
@@ -108,6 +107,7 @@ void addVisitRecord(std::string ip,
     MySQL db(MYSQL_HOST, MYSQL_PORT, MYSQL_USER, MYSQL_PASS, "");
     db.connect();
     db.useDatabase("analytics");
+    
     std::string domain = getDomain(url);
 
     db.prepare()
