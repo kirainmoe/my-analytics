@@ -128,7 +128,7 @@ class App extends React.Component {
       },
       series: [{
         type: 'pie',
-        data: browserChartData,
+        data: systemChartData,
         animation: true,
         radius: ['50%', '70%'],
         avoidLabelOverlap: false,
