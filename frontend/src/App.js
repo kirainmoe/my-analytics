@@ -102,6 +102,55 @@ class App extends React.Component {
     };
     browserChart.setOption(browserChartOption);
 
+    const systemChart = echarts.init(document.getElementById("system-chart"), "westeros");
+    const systemChartData = [];
+    for (const sys in data.system) {
+      if (data.system.hasOwnProperty(sys)) {
+        systemChartData.push({
+          name: sys,
+          value: data.system[sys]
+        });
+      }
+    }
+    const systemChartOption = {
+      title: [{
+        text: "访问者使用的操作系统"
+      }],
+      legend: {
+        orient: 'vertical',
+        bottom: 0,
+        left: 0,
+        data: Object.keys(data.browser)
+      },
+      tooltip: {
+        trigger: 'item',
+        formatter: '{b} : {c} ({d}%)'
+      },
+      series: [{
+        type: 'pie',
+        data: browserChartData,
+        animation: true,
+        radius: ['50%', '70%'],
+        avoidLabelOverlap: false,
+        right: 0,
+        label: {
+          show: false,
+          position: 'center'
+        },
+        emphasis: {
+          label: {
+            show: true,
+            fontSize: '30',
+            fontWeight: 'bold'
+          }
+        },
+        labelLine: {
+          show: false
+        }
+      }]
+    };
+    systemChart.setOption(systemChartOption);
+
     const regionChart = echarts.init(document.getElementById("region-chart"), "westeros");
     const regionChartTags = [], regionChartData = [];
     for (const r in data.region) {
@@ -261,6 +310,10 @@ class App extends React.Component {
             <div
               className={"chart-container"}
               id={"browsers-chart"}
+              style={{height: 350}} />
+            <div
+              className={"chart-container"}
+              id={"system-chart"}
               style={{height: 350}} />
             <div
               className={"chart-container"}
